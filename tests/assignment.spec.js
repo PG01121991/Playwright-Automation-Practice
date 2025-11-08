@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test')
 
-test.only('Automation Assignment one', async ({browser})=>{
+test('Automation Assignment one', async ({browser})=>{
     const context = await browser.newContext();
     const page = await context.newPage();
     const dropdown = page.locator(".custom-select.ng-untouched.ng-pristine.ng-valid")

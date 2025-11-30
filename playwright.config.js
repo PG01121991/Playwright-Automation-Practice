@@ -11,6 +11,15 @@ const config = ({
   expect: {
     timeout: 40 * 1000,
   },
+  reporter: [
+    ["line"],
+    [
+      "allure-playwright",
+      {
+        resultsDir: "allure-results",
+      },
+    ],
+  ],
   use: {
     browserName: 'chromium',
     headed: false,

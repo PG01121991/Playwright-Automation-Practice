@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1767","@PO Test the 'search' option with the available product","","Sun Nov 30 19:42:58 IST 2025","passed","Sun Nov 30 19:43:00 IST 2025","","homePagePo.spec.js","",""
+"","4516","@PO Launch the ekart URL","","Sun Nov 30 19:42:52 IST 2025","passed","Sun Nov 30 19:42:57 IST 2025","","homePagePo.spec.js","",""
+"","2435","@PO Test the 'search' option without the available product","","Sun Nov 30 19:43:01 IST 2025","passed","Sun Nov 30 19:43:03 IST 2025","","homePagePo.spec.js","",""

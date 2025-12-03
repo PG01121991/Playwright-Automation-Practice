@@ -13,13 +13,14 @@ test("@PO Launch the ekart URL", async({browser}) =>
 test("@PO Test the 'search' option with the available product", async({browser}) =>{
    const item = 'carrot';
    const item2 = 'corn';
+   const item3 = '    ';
    const context = await browser.newContext();
    const page = await context.newPage();
    const home = new homePage(page);
    home.launchUrl('https://rahulshettyacademy.com/seleniumPractise/#/');
    const search = await home.searchItem(item);
    expect(page.getByText('carrot - 1 Kg')).toBeVisible();
-   await page.locator(".search-keyword").fill(' ');
+   const search3 = await home.searchItem(item3);
    const search1 = await home.searchItem(item2);
    expect(page.getByText('corn - 1 Kg')).toBeVisible();
 })
@@ -32,8 +33,8 @@ test("@PO Test the 'search' option without the available product", async({browse
    home.launchUrl('https://rahulshettyacademy.com/seleniumPractise/#/');
    const search = await home.searchItem(item);
    await page.waitForLoadState('networkidle');
-   await expect(page.locator('.no-results')).toContainText('Sorry, no products matched your search!');
-   await expect(page.locator('.no-results')).toContainText('Enter a different keyword and try.');
+   await expect(this.noResults).toContainText('Sorry, no products matched your search!');
+   await expect(this.noResults).toContainText('Enter a different keyword and try.');
    await page.screenshot({path:'noresultsfound.png'});
    //expect(await page.screenshot()).toMatchSnapshot('noresultsfound.png');
 })
@@ -41,9 +42,10 @@ test("@PO Test the 'search' option without the available product", async({browse
 test("Test Top deals page - verify the table rows are adjusted or not based on the rows count selection", async({browser}) => {
    const context = await browser.newContext();
    const page = await context.newPage();
-   await page.goto("https://rahulshettyacademy.com/seleniumPractise/#/");
+   const home = new homePage(page);
+   await launchUrl("https://rahulshettyacademy.com/seleniumPractise/#/");
    const topDealsPage = context.waitForEvent("page");
-   await page.locator(".cart-header-navlink[href='#/offers']").click();
+   await this.topDealsLink.click();
    const page2 = await topDealsPage;
    const pageDropDown = page2.locator('select#page-menu');
    await pageDropDown.selectOption("10");

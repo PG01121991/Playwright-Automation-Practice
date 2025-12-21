@@ -1,5 +1,6 @@
 const{test, expect} = require('@playwright/test');
 const {homePage} = require('../pageObjects/homePage');
+const {topDealsPage} = require('../pageObjects/topDealsPage');
 
 test("@PO Launch the ekart URL", async({browser}) =>
    {
@@ -17,11 +18,8 @@ test("@PO Test the 'search' option with the available product", async({browser})
    const context = await browser.newContext();
    const page = await context.newPage();
    const home = new homePage(page);
-   home.launchUrl('https://rahulshettyacademy.com/seleniumPractise/#/');
-   const search = await home.searchItem(item);
+   await home.launchUrl('https://rahulshettyacademy.com/seleniumPractise/#/');
    expect(page.getByText('carrot - 1 Kg')).toBeVisible();
-   const search3 = await home.searchItem(item3);
-   const search1 = await home.searchItem(item2);
    expect(page.getByText('corn - 1 Kg')).toBeVisible();
 })
 
@@ -30,44 +28,49 @@ test("@PO Test the 'search' option without the available product", async({browse
    const context = await browser.newContext();
    const page = await context.newPage();
    const home = new homePage(page);
-   home.launchUrl('https://rahulshettyacademy.com/seleniumPractise/#/');
-   const search = await home.searchItem(item);
+   await home.launchUrl('https://rahulshettyacademy.com/seleniumPractise/#/');
    await page.waitForLoadState('networkidle');
-   await expect(this.noResults).toContainText('Sorry, no products matched your search!');
-   await expect(this.noResults).toContainText('Enter a different keyword and try.');
+   await expect(home.noResults).toContainText('Sorry, no products matched your search!');
+   await expect(home.noResults).toContainText('Enter a different keyword and try.');
    await page.screenshot({path:'noresultsfound.png'});
    //expect(await page.screenshot()).toMatchSnapshot('noresultsfound.png');
 })
 
-test("Test Top deals page - verify the table rows are adjusted or not based on the rows count selection", async({browser}) => {
+test("@PO Test Top deals page - verify the table rows are adjusted or not based on the rows count selection", async({browser}) => {
    const context = await browser.newContext();
    const page = await context.newPage();
    const home = new homePage(page);
-   await launchUrl("https://rahulshettyacademy.com/seleniumPractise/#/");
+   await home.launchUrl("https://rahulshettyacademy.com/seleniumPractise/#/");
    const topDealsPage = context.waitForEvent("page");
-   await this.topDealsLink.click();
+   await home.topDealsLink.click();
    const page2 = await topDealsPage;
-   const pageDropDown = page2.locator('select#page-menu');
-   await pageDropDown.selectOption("10");
-   expect(page2.locator('tr')).toHaveCount(11);//including header section.
-   await pageDropDown.selectOption("20");
-   expect(page2.locator('tr')).toHaveCount(21);//including header section.
-   await pageDropDown.selectOption("5");
-   expect(page2.locator('tr')).toHaveCount(6);//including header section.
+   const topDealsScreen = new topDealsPage(page);
+   //const pageDropDown = page2.locator('select#page-menu');
+   await topDealsScreen.pageDropDown.selectOption("10");
+   expect(topDealsScreen.tableRow).toHaveCount(11);//including header section.
+   await topDealsScreen.pageDropDown.selectOption("20");
+   expect(topDealsScreen.tableRow).toHaveCount(21);//including header section.
+   await topDealsScreen.pageDropDown.selectOption("5");
+   expect(topDealsScreen.tableRow).toHaveCount(6);//including header section.
 })
 
-test("Search items in the top deals page", async({browser}) => {
+test("@PO Search items in the top deals page", async({browser}) => {
+   const item = "wheat";
+   const item1 = "    ";
+   const item2 = "carrot";
    const context = await browser.newContext();
    const page = await context.newPage();
-   await page.goto("https://rahulshettyacademy.com/seleniumPractise/#/");
+   const home = new homePage(page);
+   await home.launchUrl("https://rahulshettyacademy.com/seleniumPractise/#/");
    const topDealsPage = context.waitForEvent('page');
-   await page.locator(".cart-header-navlink[href='#/offers']").click();
+   await home.topDealsLink.click();
    const page2 = await topDealsPage;
-   await page2.locator('#search-field').fill('wheat');
-   await expect(page2.locator('td').nth(0)).toContainText('Wheat');
-   await page2.locator('#search-field').fill('  ');
-   await page2.locator('#search-field').fill('carrot');
-   await expect(page2.locator('td').nth(0)).toContainText('Carrot');
+   const topDealsScreen = new topDealsPage(page2);
+   await topDealsScreen.searchProduct.fill(item);
+   await expect(topDealsScreen.searchResult).toContainText('Wheat');
+   await topDealsScreen.searchProduct.fill(item1);
+   await topDealsScreen.searchProduct.fill(item2);
+   await expect(topDealsScreen.searchResult).toContainText('Carrot');
 })
 
 test("Test the buttons on the top deals page", async({browser})=>{

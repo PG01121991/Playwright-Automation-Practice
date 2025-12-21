@@ -6,7 +6,8 @@
   "scripts": {
     "regression": "npx playwright test",
     "webTests": "npx playwright test --grep @Web",
-    "APITests": "npx playwright test --grep @API"
+    "APITests": "npx playwright test --grep @API",
+    "POTests": "npx playwright test --grep @PO"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,8 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^24.9.2",
-    "allure-playwright": "^3.4.2"
+    "allure-playwright": "^3.4.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

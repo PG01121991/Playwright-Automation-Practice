@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
-const { homePage } = require('../pageObjects/homePage.pom.spec.js');
-const { topDealsPage } = require('../pageObjects/topDealsPage.pom.spec.js');
+const { homePage } = require('../pageObjects/homePage.pom.js');
+const { topDealsPage } = require('../pageObjects/topDealsPage.pom.js');
 
 test.describe('GreenKart - Top Deals and Offers', () => {
     let context;

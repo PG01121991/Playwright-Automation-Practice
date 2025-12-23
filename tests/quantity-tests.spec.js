@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { homePage } = require('../pageObjects/homePage.pom.spec.js');
+const { homePage } = require('../pageObjects/homePage.pom.js');
 
 test.describe('GreenKart - Quantity Management', () => {
     let page;

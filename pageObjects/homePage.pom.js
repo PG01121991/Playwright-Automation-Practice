@@ -115,7 +115,10 @@ class homePage {
     }
 
     async getCartCounterText() {
-        return await this.cartCounter.textContent();
+        const fullText = await this.cartCounter.textContent();
+        // Extract number from "Items:X" format
+        const match = fullText.match(/Items:(\d+)/);
+        return match ? parseInt(match[1]) : 0;
     }
 
     async verifyAddedCheckmark() {
@@ -136,11 +139,21 @@ class homePage {
     }
 
     async waitForProductsToLoad() {
-        await this.productCards.first().waitFor({ state: 'visible' });
+        await this.page.waitForSelector('.products .product');
     }
 
     async clickLogo() {
         await this.headerLogo.click();
+    }
+
+    async isProductImageVisible(index) {
+        const productImage = this.productCards.nth(index).locator('img').first();
+        return await productImage.isVisible();
+    }
+
+    async isAddToCartButtonVisible(index) {
+        const addButton = this.productCards.nth(index).locator("button:has-text('ADD TO CART')");
+        return await addButton.isVisible();
     }
 }
 

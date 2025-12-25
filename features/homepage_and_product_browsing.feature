@@ -21,5 +21,5 @@ Feature: Homepage and Product Browsing
     Then The user should see the product image
         And The user should see the product name
         And The user should see the product price
-        And The user should see quantity controls (-, quantity input, +)
+        And The user should see quantity controls
         And The user should see the ADD TO CART button

@@ -49,7 +49,7 @@ Then('The user should see the product name', async function () {
     expect(productName).toContain('Brocolli');
 });
          
-Then('The user should see quantity controls \\(-, quantity input, +\\)', async function () {
+Then('The user should see quantity controls', async function () {
     const quantity = await this.homePage.getProductQuantity(0);
     expect(quantity).toBe('1');
 });

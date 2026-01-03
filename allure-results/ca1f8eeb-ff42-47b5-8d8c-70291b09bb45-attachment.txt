@@ -1,0 +1,2 @@
+Calculated total: 296
+Displayed total: 296

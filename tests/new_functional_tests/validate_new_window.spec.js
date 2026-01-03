@@ -6,7 +6,7 @@ test('validate the content on the new window', async({browser})=>{
     await page.locator('#openwindow').click();
     const page2 = await context.waitForEvent('page');
     await page2.waitForLoadState("networkidle");
-    await page2.locator('a:has-text("COURSES")').click();
-    const courseTitle = await page2.locator('.course-title h2').textContent();
-    expect(courseTitle).toBe('Courses');
+    const text = await page2.title();
+    console.log(text);
+    expect(text).toBe('QA Click Academy | Selenium,Jmeter,SoapUI,Appium,Database testing,QA Training Academy');
 });

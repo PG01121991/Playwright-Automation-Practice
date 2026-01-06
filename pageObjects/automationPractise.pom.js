@@ -2,6 +2,8 @@
  * Automation Practise Page Object Model
  * Encapsulates all locators and interactions for the Automation Practise page
  */
+const { expect } = require('@playwright/test');
+
 class automationPractise {
     constructor(page) {
         this.page = page;
@@ -30,8 +32,8 @@ class automationPractise {
         this.iframe = page.frameLocator('#courses-iframe');
     }
     
-    async launchAutomationPractisePage() {
-        await this.page.goto('https://rahulshettyacademy.com/AutomationPractice/');
+    async launchAutomationPractisePage(url) {
+        await this.page.goto(url);
     }
 
     async isAllRadioButtonsWorking() {
